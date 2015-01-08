@@ -1,11 +1,6 @@
 class Solution:
     # @return a boolean
     def isInterleave(self, s1, s2, s3):
-	print "Entering isInterleave..."
-	print "s1 is ",s1
-	print "s2 is ",s2
-	print "s3 is ",s3
-	print "************************"
         if len(s3) != len(s1) + len(s2):
             return False
         if len(s3) == 0:
