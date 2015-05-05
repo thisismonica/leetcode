@@ -16,7 +16,7 @@ class Solution:
             elif digit == 4:
                 res = res + d[order] + d[order*5]
             elif digit > 4 and digit < 9:
-                res = res + d[order*5] +d[order]*(digit-5)
+                res = res + d[order*5] +d[order]
             else:
                 res = res + d[order] + d[order*10]
             roman = res + roman
@@ -27,7 +27,7 @@ class Solution:
 
 # Testing
 s = Solution()
-test = 5
+test = 6
 print "Tesing: ",test
 print "Answers: ",s.answer(test) 
                 
