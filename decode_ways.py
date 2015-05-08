@@ -1,53 +1,24 @@
 class Solution:
-    # @param s, a string
-    # @return an integer
+    # @param {string} s
+    # @return {integer}
     def numDecodings(self, s):
-        def isValid( s ):
-            try:
-                num = int(s)
-            except ValueError:
-                return False
-            if len(s) == 1:
-                return num != 0
-            elif len(s) == 2:
-                return num >=10 and num <=26
-            else:
-                return False
-    
-        if len(s) == 0:
+        if len(s)==0:
             return 0
-        dp0 = 1 if isValid(s[0]) else 0
+        ways, prev_ways, prev_prev_ways = 0,0,1
+        if s[0] != '0':
+            prev_ways = 1
         if len(s) == 1:
-            return dp0
+            return prev_ways
         
-        # Calculate dp1 based on dp0
-            # Case0: 12
-        if isValid(s[1]) and isValid(s[0]+s[1]):
-            dp1 = dp0 + 1
-            # Case1: 27
-        elif isValid(s[1]) and not isValid(s[0]+s[1]):
-            dp1 = dp0
-            # Case2: 20
-        elif not isValid(s[1]) and isValid(s[0]+s[1]):
-            dp1 = dp0
-        else:
-            dp1 = 0
-
-        # DP
-        for i in range(2, len(s) ):
-            if isValid( s[i] ) and isValid( s[i-1]+s[i] ):
-                dp = dp0 + dp1
-            elif isValid( s[i] ) and not isValid( s[i-1]+s[i] ):
-                dp = dp1
-            elif not isValid( s[i] ) and isValid( s[i-1]+s[i] ):
-                dp = dp0
-            else:
-                return 0
-            dp0 = dp1
-            dp1 = dp
-                
-        return dp1
-
+        for i in range( 1,len(s) ):
+            ways = 0
+            if s[i] != '0':
+                ways += prev_ways
+            if int(s[i-1:i+1]) <= 26 and int(s[i-1:i+1]) >= 10:
+                ways += prev_prev_ways
+            prev_prev_ways = prev_ways
+            prev_ways = ways
+        return ways
 
 # Testing
 
