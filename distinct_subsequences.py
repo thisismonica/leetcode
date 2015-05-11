@@ -1,33 +1,27 @@
 class Solution:
-    def numDistinct(self, S, T):
-        dp = [ [ 0 for i in range(len(S))] for j in range( len(T) )]
+    # @param {string} s
+    # @param {string} t
+    # @return {integer}
+    def numDistinct(self, s, t):
+        if len(s) < len(t):
+            return 0
+        if t == "":
+            return 1
         
-        print "\ndp: ",dp
+        dp = [ [0 for j in range(len(t))]  for j in range(len(s)) ]
+        dp[0][0] = 1 if s[0]==t[0] else 0
+        
+        for i in range( 1, len(s) ):
+            j = 0
+            while j <= i and j < len(t):
+                dp[i][j] = dp[i-1][j]
+                if s[i] == t[j]:
+                    dp[i][j] += dp[i-1][j-1] if j > 0 else 1
+                j+=1
 
-        # Calculate dp[0][i] when susbsequence T has 1 elem
-        dp[0][0] = 1 if S[0]==T[0] else 0
-        for i in range(1, len(S) ):
-            if S[i] == T[0]:
-                dp[0][i] = dp[0][i-1] + 1
-            else:
-                dp[0][i] = dp[0][i-1]
+    return dp[len(s)-1][len(t)-1]
 
-        print "\ndp: ",dp
-        for i in range( 1, len(S) ):
-            for j in range( 1, len(T) ):
-                if j <= i:
-                    if S[i] == T[j]:
-                        dp[j][i] = dp[j-1][i-1] + dp[j][i-1]
-                    else:
-                        dp[j][i] = dp[j][i-1]
-        print "\ndp: ",dp
 
-        return dp[-1][-1]
 
-# Testing
-s = Solution()
-test1 = "B"
-test2 = "B"
-print "Testing: ",test1," ",test2
-print "Answer: ",s.numDistinct(test1,test2)
+
 
