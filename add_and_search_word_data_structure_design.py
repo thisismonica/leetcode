@@ -27,30 +27,25 @@ class WordDictionary:
     # Returns if the word is in the data structure. A word could
     # contain the dot character '.' to represent any one letter.
     def search(self, word):
-        print "search: ",word
         queue = [ ( 0, self.root) ]
         while queue != []:
             (i, node) = queue.pop(0)
             if node.end and i==len(word):
                 return True
-            if i == len(word):
-                return False
-            if word[i] == ".":
-                for n in node.children.values():
-                    queue.append( (i+1,n) )
-            elif word[i] in node.children:
-                queue.append( (i+1, node.children[word[i]]) )
+            if i != len(word):
+                if word[i] == ".":
+                    for n in node.children.values():
+                        queue.append( (i+1,n) )
+                elif word[i] in node.children:
+                    queue.append( (i+1, node.children[word[i]]) )
 
         return False
 
 # Your WordDictionary object will be instantiated and called as such:
 wordDictionary = WordDictionary()
 wordDictionary.addWord("a")
-wordDictionary.addWord("abcdefg")
-wordDictionary.addWord("bad")
-wordDictionary.addWord("ade")
+wordDictionary.addWord("predispute")
+wordDictionary.addWord("predisplay")
 
 print "True: ",wordDictionary.search("a")
-print "True: ",wordDictionary.search("a..d..")
-print "True: ",wordDictionary.search("ba.")
-print "True: ",wordDictionary.search("a")
+print "True: ",wordDictionary.search("p.....p...")
