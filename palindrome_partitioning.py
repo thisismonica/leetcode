@@ -38,7 +38,7 @@ class Solution:
 
 # Testing
 s = Solution()
-test = "aab"
+test = "sseeslaveidemonstrateyetartsnomedievalseeseeslaveidemonstrateyetartsnomedievalsees"
 print "Tesing: ",test
 print "Answers: ",s.answer(test) 
                 

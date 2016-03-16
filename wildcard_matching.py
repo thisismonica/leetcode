@@ -19,7 +19,7 @@ class Solution:
                 p_cur = star+1
                 match = match+1
                 s_cur = match
-                s_cur = s_cur + 1
+                #s_cur = s_cur + 1
             else:
                 return False
         while p_cur<len(p) and p[p_cur]=='*':
@@ -29,3 +29,9 @@ class Solution:
             return True
         else:
             return False
+s = "edd"
+p = "*d"
+
+
+sol = Solution()
+print sol.isMatch(s,p)
