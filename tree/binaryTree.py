@@ -29,11 +29,17 @@ class BinaryTree:
                 leftChild = 2*i + 1
                 rightChild = leftChild + 1
                 if leftChild < len(array):
-                    node.left = TreeNode(array[leftChild])
+                    if array[leftChild]:
+                        node.left = TreeNode(array[leftChild])
+                    else:
+                        node.left = None
                     nodeMap[leftChild] = node.left
 
                 if rightChild < len(array):
-                    node.right = TreeNode(array[rightChild])
+                    if array[rightChild]:
+                        node.right = TreeNode(array[rightChild])
+                    else:
+                        node.right = None
                     nodeMap[rightChild] = node.right
 
 
@@ -55,6 +61,37 @@ class BinaryTree:
             ret += self.display(root.left, depth + 1)
 
         return ret
+
+    def btree2Array(self, root):
+        def dfs(node, depth):
+            if node is None:
+                self.depth = max(self.depth, depth)
+                return
+
+            dfs(node.left, depth + 1)
+            dfs(node.right, depth + 1)
+
+        self.depth =  0
+        dfs(root, 0)
+
+        array = []
+        queue = [(root, 0)]
+        while queue:
+            node, layer = queue.pop(0)
+            if node:
+                array.append(node.val)
+            else:
+                array.append(0)
+
+            # Don't push node in last layer
+            if layer != self.depth - 1:
+                if node:
+                    queue.append((node.left, layer+1))
+                    queue.append((node.right, layer+1))
+                else:
+                    queue.append((None, layer+1))
+                    queue.append((None, layer+1))
+        return array
 
 
 
